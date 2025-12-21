@@ -1,1 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
 .env
+
+# Environment variables (API keys - NEVER commit!)
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# Data files (large/confidential)
+data/
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE settings
+.vscode/
+.idea/
+
+# Output files that are regenerated (keep latest versions)
+outputs/*_2*.xlsx
+outputs/*_2*.csv
+!outputs/ledger_transcription_v2.1_latest.xlsx
+!outputs/version_comparison_*.csv
+!outputs/summary_table_for_slides.csv
+!outputs/chart*.png
+!outputs/FINAL_REPORT.md
+
+# Error logs
+*.log
