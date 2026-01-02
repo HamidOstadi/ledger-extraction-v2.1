@@ -21,79 +21,60 @@ UNICODE_FRACTION_MAP = {
 }
 
 # Historical notation mapping
-# "q" = quarter = 1/4 pence
-# "qd" = quarter pence
-# "d" suffix = denarius (pence) - can be ignored
 HISTORICAL_FRACTION_MAP = {
     "q": "1/4",
     "qd": "1/4",
     "qr": "1/4",
-    "ob": "1/2",      # obolus = half penny
+    "ob": "1/2",
     "obd": "1/2",
 }
+
+# Currency validation constants (19th-century British currency system)
+MAX_SHILLINGS = 19  # 20 shillings = 1 pound
+MAX_PENCE = 11      # 12 pence = 1 shilling
 
 
 def clean_pence_fraction(pence_whole, pence_fraction: str) -> tuple:
     """
     Clean and validate pence fraction values.
-    
-    Handles:
-    - Unicode fractions: ¼, ½, ¾
-    - Standard fractions: 1/4, 1/2, 3/4
-    - Fractions with 'd' suffix: "1/4 d", "3/4d", "1/2 d"
-    - Historical notation: "q", "qd" (quarter), "ob" (half)
-    
-    Args:
-        pence_whole: The whole pence value
-        pence_fraction: The fraction string to clean
-    
-    Returns:
-        Tuple of (cleaned_whole, cleaned_fraction)
     """
     frac = str(pence_fraction).strip().lower()
     whole = pence_whole
     
-    # Handle empty/none values
     if frac in ("", "none", "nan"):
         return whole, ""
     
-    # Step 1: Remove trailing 'd' or ' d' (denarius suffix)
+    # Remove trailing 'd' or ' d' (denarius suffix)
     frac = re.sub(r'\s*d$', '', frac).strip()
     
-    # Step 2: Map unicode fractions
-    # Need to check original (before lowercase) for unicode
+    # Map unicode fractions
     original_frac = str(pence_fraction).strip()
     for unicode_char, standard in UNICODE_FRACTION_MAP.items():
         if unicode_char in original_frac:
             return whole, standard
     
-    # Step 3: Map historical notation (q, qd, ob, etc.)
+    # Map historical notation
     if frac in HISTORICAL_FRACTION_MAP:
         return whole, HISTORICAL_FRACTION_MAP[frac]
     
-    # Step 4: Check if it's already a valid standard fraction
+    # Check if valid standard fraction
     if frac in VALID_PENCE_FRACTIONS:
         return whole, frac
     
-    # Step 5: Handle fractions that might have extra whitespace
-    # e.g., "1 / 4" -> "1/4"
+    # Handle fractions with extra whitespace
     frac_normalized = re.sub(r'\s*/\s*', '/', frac)
     if frac_normalized in VALID_PENCE_FRACTIONS:
         return whole, frac_normalized
     
-    # Step 6: If fraction is a pure digit and whole is empty/zero,
-    # treat it as whole pence and clear fraction
+    # If fraction is a pure digit and whole is empty/zero
     if frac.isdigit() and str(whole).strip() in ("", "0"):
         return int(frac), ""
     
-    # Otherwise: treat as unknown, drop fraction
     return whole, ""
 
 
 def normalize_empty_values(value) -> str:
-    """
-    Convert None, NaN, or other empty-like values to empty string.
-    """
+    """Convert None, NaN, or other empty-like values to empty string."""
     if value is None:
         return ""
     if pd.isna(value):
@@ -101,10 +82,70 @@ def normalize_empty_values(value) -> str:
     return value
 
 
+def safe_to_int(value) -> int | None:
+    """Safely convert a value to integer, returning None if not possible."""
+    if value is None or pd.isna(value):
+        return None
+    s = str(value).strip()
+    if s in ("", "nan", "None", "NaN"):
+        return None
+    try:
+        return int(float(s))
+    except (ValueError, TypeError):
+        return None
+
+
+def validate_currency_range(row: pd.Series) -> dict:
+    """
+    Validate that currency values are within historical valid ranges.
+    
+    British currency system (pre-decimalization):
+    - 20 shillings = 1 pound
+    - 12 pence = 1 shilling
+    
+    Returns:
+        Dictionary with validation results
+    """
+    issues = []
+    
+    # Check shillings (must be 0-19)
+    shillings = safe_to_int(row.get("amount_shillings"))
+    if shillings is not None and (shillings < 0 or shillings > MAX_SHILLINGS):
+        issues.append({
+            "field": "amount_shillings",
+            "value": shillings,
+            "issue": f"Shillings must be 0-{MAX_SHILLINGS}, got {shillings}",
+            "severity": "error",
+        })
+    
+    # Check pence (must be 0-11)
+    pence = safe_to_int(row.get("amount_pence_whole"))
+    if pence is not None and (pence < 0 or pence > MAX_PENCE):
+        issues.append({
+            "field": "amount_pence_whole",
+            "value": pence,
+            "issue": f"Pence must be 0-{MAX_PENCE}, got {pence}",
+            "severity": "error",
+        })
+    
+    # Check for negative pounds (unlikely but invalid)
+    pounds = safe_to_int(row.get("amount_pounds"))
+    if pounds is not None and pounds < 0:
+        issues.append({
+            "field": "amount_pounds",
+            "value": pounds,
+            "issue": f"Pounds cannot be negative, got {pounds}",
+            "severity": "error",
+        })
+    
+    return {
+        "is_valid": len(issues) == 0,
+        "issues": issues,
+    }
+
+
 def has_any_amount(row: pd.Series) -> bool:
-    """
-    Check if a row has any currency amount values.
-    """
+    """Check if a row has any currency amount values."""
     amount_cols = ["amount_pounds", "amount_shillings", "amount_pence_whole"]
     for col in amount_cols:
         if col in row:
@@ -115,21 +156,15 @@ def has_any_amount(row: pd.Series) -> bool:
 
 
 def infer_row_type(row: pd.Series) -> str:
-    """
-    Infer the row type based on content.
-    Rows without amounts (except title rows) are likely section headers.
-    """
+    """Infer the row type based on content."""
     current_type = row.get("row_type", "entry")
     
-    # Don't change title rows
     if current_type == "title":
         return "title"
     
-    # Don't change total rows
     if current_type == "total":
         return "total"
     
-    # If no amounts, likely a section header
     if not has_any_amount(row):
         return "section_header"
     
@@ -140,52 +175,52 @@ def calculate_confidence_score(row: pd.Series) -> float:
     """
     Calculate a confidence score (0.0 to 1.0) for a row based on data quality signals.
     
-    Scoring factors:
-    - Has description: +0.2
-    - Has at least one amount field: +0.2
-    - Pence fraction is valid: +0.2
-    - Row type is consistent with content: +0.2
-    - All amount fields are numeric: +0.2
+    Updated scoring factors:
+    - Has description: +0.15
+    - Has at least one amount field: +0.15
+    - Pence fraction is valid: +0.15
+    - Row type is consistent with content: +0.15
+    - All amount fields are numeric: +0.15
+    - Currency values are in valid range: +0.25 (NEW - higher weight)
     
     Returns:
         Float between 0.0 and 1.0
     """
     score = 0.0
     
-    # Factor 1: Has description
+    # Factor 1: Has description (+0.15)
     desc = str(row.get("description", "")).strip()
     if desc and desc.lower() not in ("", "none", "nan"):
-        score += 0.2
+        score += 0.15
     
-    # Factor 2: Has at least one amount
+    # Factor 2: Has at least one amount (+0.15)
     if has_any_amount(row):
-        score += 0.2
+        score += 0.15
     
-    # Factor 3: Valid pence fraction
+    # Factor 3: Valid pence fraction (+0.15)
     pence_frac = str(row.get("amount_pence_fraction", "")).strip()
     if pence_frac in VALID_PENCE_FRACTIONS:
-        score += 0.2
+        score += 0.15
     
-    # Factor 4: Row type consistency
+    # Factor 4: Row type consistency (+0.15)
     row_type = row.get("row_type", "")
     has_amounts = has_any_amount(row)
     
     if row_type == "entry" and has_amounts:
-        score += 0.2
+        score += 0.15
     elif row_type == "section_header" and not has_amounts:
-        score += 0.2
+        score += 0.15
     elif row_type == "total" and has_amounts:
-        score += 0.2
+        score += 0.15
     elif row_type == "title":
-        score += 0.2
+        score += 0.15
     
-    # Factor 5: Amount fields are properly formatted
+    # Factor 5: Amount fields are properly formatted (+0.15)
     amount_fields_valid = True
     for col in ["amount_pounds", "amount_shillings", "amount_pence_whole"]:
         val = row.get(col, "")
         val_str = str(val).strip()
         if val_str and val_str not in ("", "None", "nan"):
-            # Should be numeric or empty
             try:
                 float(val_str)
             except ValueError:
@@ -193,29 +228,34 @@ def calculate_confidence_score(row: pd.Series) -> float:
                 break
     
     if amount_fields_valid:
-        score += 0.2
+        score += 0.15
     
-    return round(score, 2)
+    # Factor 6: Currency values in valid range (+0.25) - NEW
+    validation = validate_currency_range(row)
+    if validation["is_valid"]:
+        score += 0.25
+    else:
+        # Partial credit if only minor issues
+        error_count = len(validation["issues"])
+        if error_count == 1:
+            score += 0.10  # One issue: partial credit
+        # Multiple issues: no credit
+    
+    return round(min(score, 1.0), 2)
 
 
 def create_empty_dataframe() -> pd.DataFrame:
-    """
-    Create an empty DataFrame with the master schema.
-    """
+    """Create an empty DataFrame with the master schema."""
     return pd.DataFrame(columns=COLUMNS)
 
 
 def apply_schema_defaults(df: pd.DataFrame, file_id: str, page_number: int) -> pd.DataFrame:
-    """
-    Apply default values and metadata to a DataFrame.
-    """
+    """Apply default values and metadata to a DataFrame."""
     df = df.copy()
     
-    # Metadata
     df["file_id"] = file_id
     df["page_number"] = page_number
     
-    # Defaults for missing columns
     defaults = {
         "page_type": "ledger",
         "page_title": "",
