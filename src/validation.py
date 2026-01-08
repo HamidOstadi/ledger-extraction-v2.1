@@ -4,7 +4,7 @@ Validation utilities for the Ledger OCR Project V2
 
 import pandas as pd
 from src.config import COLUMNS
-from src.schema import safe_to_int, validate_currency_range, MAX_SHILLINGS, MAX_PENCE
+from src.schema import safe_to_int, validate_currency_range, MAX_SHILLINGS, MAX_PENCE, classify_page_complexity
 
 
 def compare_with_ground_truth(
@@ -257,3 +257,61 @@ def summarize_extraction_results(df: pd.DataFrame) -> dict:
         "avg_confidence": round(df["confidence_score"].mean(), 3) if "confidence_score" in df.columns else None,
         "low_confidence_count": len(df[df["confidence_score"] < 0.6]) if "confidence_score" in df.columns else 0,
     }
+
+
+def analyze_errors_by_complexity(df: pd.DataFrame, validation_report: dict) -> dict:
+    """
+    Analyze if complex pages have more errors than simple pages.
+
+    Returns:
+        Dictionary with error rates by complexity level
+    """
+    complexity_results = []
+
+    # Classify each page
+    for (file_id, page_num), page_df in df.groupby(["file_id", "page_number"]):
+        complexity = classify_page_complexity(page_df)
+
+        # Count currency issues on this page
+        currency_issues = 0
+        for _, row in page_df.iterrows():
+            validation = validate_currency_range(row)
+            if not validation["is_valid"]:
+                currency_issues += 1
+
+        complexity_results.append({
+            "file_id": file_id,
+            "page_number": page_num,
+            "classification": complexity["classification"],
+            "complexity_score": complexity["complexity_score"],
+            "row_count": len(page_df),
+            "currency_issues": currency_issues,
+            "issue_rate": round(currency_issues / len(page_df) * 100, 2) if len(page_df) > 0 else 0,
+        })
+
+    results_df = pd.DataFrame(complexity_results)
+
+    # Aggregate by complexity level
+    summary = {}
+    for level in ["simple", "moderate", "complex"]:
+        level_df = results_df[results_df["classification"] == level]
+        if len(level_df) > 0:
+            summary[level] = {
+                "page_count": len(level_df),
+                "total_rows": level_df["row_count"].sum(),
+                "total_issues": level_df["currency_issues"].sum(),
+                "avg_issue_rate": round(level_df["issue_rate"].mean(), 2),
+            }
+        else:
+            summary[level] = {
+                "page_count": 0,
+                "total_rows": 0,
+                "total_issues": 0,
+                "avg_issue_rate": 0,
+            }
+
+    return {
+        "by_page": results_df,
+        "summary": summary,
+    }
+

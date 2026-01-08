@@ -278,3 +278,77 @@ def apply_schema_defaults(df: pd.DataFrame, file_id: str, page_number: int) -> p
             df[col] = default_val
     
     return df
+
+
+def classify_page_complexity(df_page: pd.DataFrame) -> dict:
+    """
+    Classify a page as 'simple' or 'complex' based on layout characteristics.
+
+    Complexity factors:
+    - Row count (more rows = more complex)
+    - Multiple section headers (indicates structured sections)
+    - Mix of row types (title, entry, section_header, total)
+    - Presence of brace groupings
+
+    Returns:
+        Dictionary with complexity classification and factors
+    """
+    factors = {}
+    complexity_score = 0
+
+    # Factor 1: Row count
+    row_count = len(df_page)
+    factors["row_count"] = row_count
+    if row_count > 30:
+        complexity_score += 2
+    elif row_count > 15:
+        complexity_score += 1
+
+    # Factor 2: Number of section headers
+    if "row_type" in df_page.columns:
+        section_headers = (df_page["row_type"] == "section_header").sum()
+        factors["section_headers"] = section_headers
+        if section_headers > 3:
+            complexity_score += 2
+        elif section_headers > 1:
+            complexity_score += 1
+
+    # Factor 3: Multiple totals (indicates sub-sections)
+    if "row_type" in df_page.columns:
+        totals = (df_page["row_type"] == "total").sum()
+        factors["total_rows"] = totals
+        if totals > 1:
+            complexity_score += 1
+
+    # Factor 4: Brace groupings
+    if "group_brace_id" in df_page.columns:
+        brace_groups = df_page["group_brace_id"].nunique()
+        # Subtract 1 if empty string is counted
+        if "" in df_page["group_brace_id"].values:
+            brace_groups -= 1
+        factors["brace_groups"] = max(0, brace_groups)
+        if brace_groups > 0:
+            complexity_score += 1
+
+    # Factor 5: Page type
+    if "page_type" in df_page.columns:
+        page_type = df_page["page_type"].iloc[0] if len(df_page) > 0 else "ledger"
+        factors["page_type"] = page_type
+        if page_type == "balance_sheet":
+            complexity_score += 2
+
+    # Classify based on score
+    factors["complexity_score"] = complexity_score
+    if complexity_score >= 4:
+        classification = "complex"
+    elif complexity_score >= 2:
+        classification = "moderate"
+    else:
+        classification = "simple"
+
+    return {
+        "classification": classification,
+        "complexity_score": complexity_score,
+        "factors": factors,
+    }
+
