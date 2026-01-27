@@ -31,6 +31,7 @@ COLUMNS = [
     "page_title",
     "row_index",
     "row_type",
+    "side",
     "date_raw",
     "description",
     "amount_pounds",

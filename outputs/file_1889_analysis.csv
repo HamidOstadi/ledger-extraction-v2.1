@@ -1,0 +1,260 @@
+file_id,page_number,page_type,page_title,row_index,row_type,date_raw,description,amount_pounds,amount_shillings,amount_pence_whole,amount_pence_fraction,is_total_row,group_brace_id,transaction_type,num_col_1,num_col_2,num_col_3,num_col_4,num_col_5,num_col_6,confidence_score,entry_confidence,notes,desc_length
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,1,title,,General Account I,,,,,False,,,,,,,,,0.85,model,,17
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,2,section_header,,A External Receipts,,,,,False,,,,,,,,,0.85,model,,19
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,3,entry,,Lands let at Rackrent,2923.0,3.0,10,,False,,,,,,,,,1.0,model,,21
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,4,entry,,Lands let on Beneficial Lease,,,,,False,,,,,,,,,0.7,model,,29
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,5,entry,,Houses let at Rackrent,1.0,11.0,10,,False,,,,,,,,,1.0,model,,22
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,6,entry,,Houses let on Beneficial Lease,,,,,False,,,,,,,,,0.7,model,,30
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,7,entry,,Houses Tithe of Houses let on Lease,113.0,,,,False,,,,,,,,,1.0,model,,35
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,8,entry,,Fine & Forfeiture Loans,,,,,False,,,,,,,,,0.7,model,,23
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,9,entry,,Copyholds for Tithe,,,,,False,,,,,,,,,0.7,model,,19
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,10,entry,,Copyholds of Inheritance,,,,,False,,,,,,,,,0.7,model,,24
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,11,entry,,Leaseholds held by the College,,2.0,15,,False,,,,,,,,,0.85,model,,30
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,12,entry,,Tithe Rentcharge,710.0,9.0,6,,False,,,,,,,,,1.0,model,,16
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,13,entry,,"Quitrents, &c.",22.0,8.0,6,,False,,,,,,,,,1.0,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,14,entry,,Timber and Underwood,,,,,False,,,,,,,,,0.7,model,,20
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,15,entry,,Minerals,,,,,False,,,,,,,,,0.7,model,,8
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,16,entry,,Other properties,,,,,False,,,,,,,,,0.7,model,,16
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,17,section_header,,Dividends and Interest,,,,,False,,,,,,,,,0.85,model,,22
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,18,entry,,,438.0,12.0,6,,False,,,,,,,,,0.85,model,,3
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,19,section_header,,B Internal,,,,,False,,,,,,,,,0.85,model,,10
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,20,entry,,1. Admission Fees,205.0,6.0,,,False,,,,,,,,,1.0,model,,17
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,21,entry,,2. Degree Fees,341.0,17.0,6,,False,,,,,,,,,1.0,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,22,entry,,3. College Dues and Establishment charges,3724.0,3.0,,,False,,,,,,,,,1.0,model,,41
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,23,entry,,4. Tuition Fees,2722.0,14.0,,,False,,,,,,,,,1.0,model,,15
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,24,entry,,5. Room Rents,1409.0,0.0,3,,False,,,,,,,,,1.0,model,,13
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,25,entry,,6. Profit in Kitchen & Buttery,170.0,15.0,4,,False,,,,,,,,,1.0,model,,30
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,26,entry,,7. Other sources King Charles 166. 13. 8,1.0,1.0,0,,False,,,,,,,,,1.0,model,,40
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,27,entry,,C From Trust Funds,67.0,14.0,8,,False,,,,,,,,,1.0,model,,18
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,28,entry,,1. Shortridge Trust (Solitary),364.0,6.0,,,False,,,,,,,,,1.0,model,,30
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,29,entry,,2. How,,66.0,18,,False,,,,,,,,,0.75,model,,6
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,30,entry,,3. Gifford,70.0,,,,False,,,,,,,,,1.0,model,,10
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,31,entry,,4. Jerome Richards,,,,,False,,,,,,,,,0.7,model,,18
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,32,entry,,5. Dr Richards,,,,,False,,,,,,,,,0.7,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,33,entry,,6. Carter,,76.0,14,,False,,,,,,,,,0.75,model,,9
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,34,entry,,7. Symes,,60.0,,,False,,,,,,,,,0.85,model,,8
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,35,entry,,8. Michell,,36.0,13,4,False,,,,,,,,,0.6,model,,10
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,36,entry,,9. King Charles 1,,155.0,6,,False,,,,,,,,,0.85,model,,17
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,37,entry,,10. Hasker,106.0,18.0,4,944,False,,,,,,,,,0.85,model,,10
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,38,section_header,,D Sale of Stock,,,,,False,,,,,,,,,0.85,model,,15
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,39,total,,Total Receipts,13809.0,8.0,9,,False,,,,,,,,,1.0,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,40,entry,,Balance at beginning of acct.,,,,,False,,,,,,,,,0.7,model,,29
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,41,entry,,Balance Dr to General acct II,1581.0,4.0,9,,False,,,,,,,,,1.0,model,,29
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,42,total,,,15190.0,13.0,6,,False,,,,,,,,,0.85,model,,3
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,43,section_header,,Payments A External,,,,,False,,,,,,,,,0.85,model,,19
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,44,entry,,1. Charges in respect of Estate Loans,,,,,False,,,,,,,,,0.7,model,,37
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,45,entry,,2. Charges in respect of Fine Loans,,,,,False,,,,,,,,,0.7,model,,35
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,46,entry,,3. Lessees Annuities,,,,,False,,,,,,,,,0.7,model,,20
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,47,entry,,4. Debt Rents,,,,,False,,,,,,,,,0.7,model,,13
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,48,entry,,5. Miscellaneous Rent & Rent charge,,7.0,15,,False,,,,,,,,,0.85,model,,35
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,49,entry,,"6. Rates, Taxes, & Insurance",,356.0,3,,False,,,,,,,,,0.85,model,,28
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,50,entry,,7. Agency & Management,,86.0,16,3,False,,,,,,,,,0.6,model,,22
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,51,entry,,8. Law Charges,,,,,False,,,,,,,,,0.7,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,52,entry,,9. Repairs and Improvements,,391.0,9,10,False,,,,,,,,,0.7,model,,27
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,53,entry,,10. Payments to Vicar &c,,58.0,2,4,False,,,,,,,,,0.7,model,,24
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,54,entry,,11. Donations to Churches & Schools,,70.0,2,5,False,,,,,,,,,0.7,model,,35
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,55,entry,,12. Other Expenditure,,81.0,2,10,False,,,,,,,,,0.7,model,,21
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,56,section_header,,B Internal,,,,,False,,,,,,,,,0.85,model,,10
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,57,entry,,1. Charges in respect of Building Loans,,,,,False,,,,,,,,,0.7,model,,39
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,58,entry,,"2. Rates, Taxes & Insurance",395.0,19.0,11,,False,,,,,,,,,1.0,model,,27
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,59,entry,,3. Maintenance & Repairs College Buildings &c,1457.0,4.0,,,False,,,,,,,,,1.0,model,,45
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,60,entry,,4. Chapel Services & Choir Funds,177.0,14.0,4,,False,,,,,,,,,1.0,model,,32
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,61,entry,,5. Library,364.0,2.0,,,False,,,,,,,,,1.0,model,,10
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,62,entry,,6. College Servants,155.0,16.0,5,,False,,,,,,,,,1.0,model,,19
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,63,entry,,7. Table Allowances,161.0,4.0,1,,False,,,,,,,,,1.0,model,,19
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,64,entry,,8. College Entertainments,150.0,,6,,False,,,,,,,,,1.0,model,,25
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,65,entry,,9. Maintenance of Establishment,622.0,,6,,False,,,,,,,,,1.0,model,,31
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,66,entry,,10. The Head of the College,1153.0,15.0,,,False,,,,,,,,,1.0,model,,27
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,67,entry,,11. Fellows,2530.0,,,,False,,,,,,,,,1.0,model,,11
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,68,entry,,12. Scholars Foundation Trust,1270.0,12.0,6,,False,,,,,,,,,1.0,model,,29
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,69,entry,,13. College Officers,205.0,6.0,,,False,,,,,,,,,1.0,model,,20
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,70,entry,,14. HE Tuition Fund,2722.0,14.0,,,False,,,,,,,,,1.0,model,,19
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,71,entry,,15. HE Pension Funds,,,,,False,,,,,,,,,0.7,model,,20
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,72,entry,,16. HE Exhibition Funds,201.0,6.0,8,,False,,,,,,,,,1.0,model,,23
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,73,entry,,17. HE Building Fund,,,,,False,,,,,,,,,0.7,model,,20
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,74,entry,,18. Other Expenditure (Racing Room),85.0,5.0,3,,False,,,,,,,,,1.0,model,,35
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,75,section_header,,C University Purposes,,,,,False,,,,,,,,,0.85,model,,21
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,76,entry,,Common University Fund,,109.0,19,5,False,,,,,,,,,0.6,model,,22
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,77,section_header,,D Investments,,,,,False,,,,,,,,,0.85,model,,13
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,78,total,,Total Payments,15190.0,13.0,6,,False,,,,,,,,,1.0,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,79,entry,,Balance at close of acct.,,,,,False,,,,,,,,,0.7,model,,25
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,80,title,,General Account II (Capital),,,,,False,,,,,,,,,0.85,model,,28
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,81,entry,,Repayment of Loan,1.0,10.0,,,False,,,,,,,,,1.0,model,,17
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,82,entry,,Dues Compositions,,78.0,13,6,False,,,,,,,,,0.6,model,,17
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,83,total,,Total Receipts,85.0,13.0,6,,False,,,,,,,,,1.0,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,84,entry,,Balance at beginning of acct.,5329.0,9.0,1,,False,,,,,,,,,1.0,model,,29
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,85,total,,,5418.0,2.0,7,,False,,,,,,,,,0.85,model,,3
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,86,entry,,Local Rates Composition Funds,,8.0,17,6,False,,,,,,,,,0.7,model,,29
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,87,total,,Total Payments,,8.0,17,6,False,,,,,,,,,0.7,model,,14
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,88,entry,,Dr Balance from General Acct I,1381.0,4.0,9,,False,,,,,,,,,1.0,model,,30
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,89,entry,,Balance at close of acct.,44028.0,4.0,,,False,,,,,,,,,1.0,model,,25
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,90,total,,,5418.0,2.0,7,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,1,title,,Symes Trust,,,,,False,,,,,,,,,0.85,model,,11
+1889,2,ledger,Account of Trust Funds,2,entry,,Dividends & Interest,14.0,6.0,11,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,3,entry,,Rents & Profits of Estate,7.0,,,,False,,,,,,,,,1.0,model,,25
+1889,2,ledger,Account of Trust Funds,4,entry,,Total Receipts,84.0,6.0,11,,False,,,,,,,,,1.0,model,,14
+1889,2,ledger,Account of Trust Funds,5,entry,,Balance at beginning of acct,49.0,11.0,3,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,6,total,,,134.0,1.0,2,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,7,entry,,"Repairs, Management &c",15.0,11.0,11,,False,,,,,,,,,1.0,model,,22
+1889,2,ledger,Account of Trust Funds,8,entry,,Payments on respect of purposes & annual to Exhibitions,60.0,,,,False,,,,,,,,,1.0,model,,55
+1889,2,ledger,Account of Trust Funds,9,entry,,Total Payments,76.0,6.0,11,,False,,,,,,,,,1.0,model,,14
+1889,2,ledger,Account of Trust Funds,10,entry,,Balance at close of acct,57.0,15.0,3,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,11,total,,,134.0,1.0,2,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,12,title,,King Charles I Fund,,,,,False,,,,,,,,,0.85,model,,19
+1889,2,ledger,Account of Trust Funds,13,entry,,"Dividends, Rents &c",211.0,16.0,5,,False,,,,,,,,,1.0,model,,19
+1889,2,ledger,Account of Trust Funds,14,entry,,Balance at beginning of acct,405.0,1.0,5,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,15,total,,,616.0,8.0,10,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,16,entry,,Payment to Scholars,133.0,6.0,8,,False,,,,,,,,,1.0,model,,19
+1889,2,ledger,Account of Trust Funds,17,entry,,Balance at close of acct,483.0,1.0,2,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,18,total,,,616.0,8.0,10,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,19,title,,How Exhibition,,,,,False,,,,,,,,,0.85,model,,14
+1889,2,ledger,Account of Trust Funds,20,entry,,Dividends & Interest,69.0,13.0,,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,21,entry,,Balance at beginning of acct,88.0,10.0,11,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,22,total,,,158.0,5.0,11,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,23,entry,,Payment to Exhibitions,66.0,13.0,4,,False,,,,,,,,,1.0,model,,22
+1889,2,ledger,Account of Trust Funds,24,entry,,Balance at close of acct,91.0,12.0,7,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,25,total,,,158.0,5.0,11,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,26,title,,Michell Exhibition,,,,,False,,,,,,,,,0.85,model,,18
+1889,2,ledger,Account of Trust Funds,27,entry,,Dividends & Interest,37.0,7.0,,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,28,entry,,Rents & Profits of Estate,18.0,,,,False,,,,,,,,,1.0,model,,25
+1889,2,ledger,Account of Trust Funds,29,total,,Total Receipts,55.0,7.0,,,False,,,,,,,,,1.0,model,,14
+1889,2,ledger,Account of Trust Funds,30,entry,,Balance at beginning of acct,55.0,7.0,,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,31,entry,,Repairs & Management,7.0,5.0,,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,32,entry,,Payments to Exhibitions,36.0,13.0,4,,False,,,,,,,,,1.0,model,,23
+1889,2,ledger,Account of Trust Funds,33,total,,Total Payments,43.0,18.0,3,,False,,,,,,,,,1.0,model,,14
+1889,2,ledger,Account of Trust Funds,34,entry,,Balance at close of acct,11.0,9.0,4,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,35,total,,,55.0,7.0,,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,36,title,,Haacker Scholarship,,,,,False,,,,,,,,,0.85,model,,19
+1889,2,ledger,Account of Trust Funds,37,entry,,Dividends & Interest,168.0,19.0,3,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,38,entry,,Balance at beginning of acct,234.0,12.0,9,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,39,total,,,403.0,12.0,0,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,40,entry,,Payments to Scholars,106.0,13.0,4,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,41,entry,,Balance at close of acct,296.0,18.0,8,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,42,total,,,403.0,12.0,0,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,43,title,,Dr Richards Prize Fund,,,,,False,,,,,,,,,0.85,model,,22
+1889,2,ledger,Account of Trust Funds,44,entry,,Dividends & Interest,17.0,8.0,,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,45,entry,,Balance at beginning of acct,17.0,4.0,,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,46,total,,,34.0,15.0,6,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,47,entry,,Balance at close of acct,34.0,15.0,6,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,48,title,,Shortridge Trust (Library),,,,,False,,,,,,,,,0.85,model,,26
+1889,2,ledger,Account of Trust Funds,49,entry,,Dividends & Interest,237.0,13.0,11,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,50,entry,,Rents & Profits of Estate,16.0,10.0,,,False,,,,,,,,,1.0,model,,25
+1889,2,ledger,Account of Trust Funds,51,total,,Total Receipts,400.0,3.0,11,,False,,,,,,,,,1.0,model,,14
+1889,2,ledger,Account of Trust Funds,52,entry,,Balance at beginning of acct,475.0,1.0,9,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,53,total,,,476.0,2.0,10,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,54,entry,,Paid to Library acct,364.0,,2,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,55,total,,Total Payments,364.0,,2,,False,,,,,,,,,1.0,model,,14
+1889,2,ledger,Account of Trust Funds,56,entry,,Balance at close of acct,112.0,0.0,10,,False,,,,,,,,,1.0,model,,24
+1889,2,ledger,Account of Trust Funds,57,total,,,476.0,2.0,10,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,58,title,,Gifford Exhibition,,,,,False,,,,,,,,,0.85,model,,18
+1889,2,ledger,Account of Trust Funds,59,entry,,Dividends & Interest,74.0,6.0,9,,False,,,,,,,,,1.0,model,,20
+1889,2,ledger,Account of Trust Funds,60,entry,,Balance at beginning of acct,44.0,10.0,0,,False,,,,,,,,,1.0,model,,28
+1889,2,ledger,Account of Trust Funds,61,total,,,113.0,12.0,9,,False,,,,,,,,,0.85,model,,3
+1889,2,ledger,Account of Trust Funds,62,entry,,Payments to Exhibitions,70.0,,,,False,,,,,,,,,1.0,model,,23
+1889,2,ledger,Account of Trust Funds,63,entry,,Balance at close of,40.0,12.0,9,,False,,,,,,,,,1.0,model,,19
+1889,2,ledger,Account of Trust Funds,64,total,,,113.0,12.0,9,,False,,,,,,,,,0.85,model,,3
+1889,3,ledger,Loscombe Richards Exhibition,1,title,,Loscombe Richards Exhibition,,,,,False,,,,,,,,,0.85,model,,28
+1889,3,ledger,Loscombe Richards Exhibition,2,section_header,,Rents and Profits of estates,,,,,False,,,,,,,,,0.85,model,,28
+1889,3,ledger,Loscombe Richards Exhibition,3,entry,,Balance at beginning of acct.,100.0,13.0,3,,False,,,,,,,,,1.0,model,,29
+1889,3,ledger,Loscombe Richards Exhibition,4,total,,,138.0,13.0,3,,True,,,,,,,,,0.85,model,,3
+1889,3,ledger,Loscombe Richards Exhibition,5,entry,,Taxes and Commissions,2.0,15.0,1,,False,,,,,,,,,1.0,model,,21
+1889,3,ledger,Loscombe Richards Exhibition,6,entry,,Payment to Exhibitioners,30.0,,,,False,,,,,,,,,1.0,model,,24
+1889,3,ledger,Loscombe Richards Exhibition,7,entry,,Balance at close of acct.,105.0,18.0,2,,False,,,,,,,,,1.0,model,,25
+1889,3,ledger,Loscombe Richards Exhibition,8,total,,,138.0,13.0,3,,True,,,,,,,,,0.85,model,,3
+1889,3,ledger,Loscombe Richards Exhibition,9,section_header,,Dr Richards Exhibition,,,,,False,,,,,,,,,0.85,model,,22
+1889,3,ledger,Loscombe Richards Exhibition,10,entry,,Dividends & Interest,20.0,10.0,11,,False,,,,,,,,,1.0,model,,20
+1889,3,ledger,Loscombe Richards Exhibition,11,entry,,Balance at beginning of acct.,5.0,10.0,7,,False,,,,,,,,,1.0,model,,29
+1889,3,ledger,Loscombe Richards Exhibition,12,total,,,26.0,1.0,6,,True,,,,,,,,,0.85,model,,3
+1889,3,ledger,Loscombe Richards Exhibition,13,section_header,,Payment to Exhibitioners,,,,,False,,,,,,,,,0.85,model,,24
+1889,3,ledger,Loscombe Richards Exhibition,14,entry,,Balance at close of acct.,26.0,1.0,6,,False,,,,,,,,,1.0,model,,25
+1889,3,ledger,Loscombe Richards Exhibition,15,total,,,26.0,1.0,6,,True,,,,,,,,,0.85,model,,3
+1889,3,ledger,Loscombe Richards Exhibition,16,section_header,,Carter Scholarship,,,,,False,,,,,,,,,0.85,model,,18
+1889,3,ledger,Loscombe Richards Exhibition,17,entry,,Dividends & Interest,68.0,17.0,5,,False,,,,,,,,,1.0,model,,20
+1889,3,ledger,Loscombe Richards Exhibition,18,entry,,Balance at beginning of acct.,10.0,18.0,11,,False,,,,,,,,,1.0,model,,29
+1889,3,ledger,Loscombe Richards Exhibition,19,total,,,79.0,16.0,4,,True,,,,,,,,,0.85,model,,3
+1889,3,ledger,Loscombe Richards Exhibition,20,entry,,Payment to Scholars,76.0,13.0,4,,False,,,,,,,,,1.0,model,,19
+1889,3,ledger,Loscombe Richards Exhibition,21,entry,,Balance at close of acct.,3.0,3.0,,,False,,,,,,,,,1.0,model,,25
+1889,3,ledger,Loscombe Richards Exhibition,22,total,,,79.0,16.0,4,,True,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,1,section_header,,From Stockbridge Trust,,,,,False,,,,,,,,,0.85,model,,22
+1889,4,ledger,Special Funds Library Account,2,entry,,"Rates, Taxes & Insurance",42.0,11.0,4,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,3,entry,,Librarian's Salary,6.0,0.0,,,False,,,,,,,,,1.0,model,,18
+1889,4,ledger,Special Funds Library Account,4,entry,,"Wages, Coal &c",31.0,19.0,4,,False,,,,,,,,,1.0,model,,14
+1889,4,ledger,Special Funds Library Account,5,entry,,"Purchase of Books, Subscriptions &c",229.0,8.0,4,,False,,,,,,,,,1.0,model,,35
+1889,4,ledger,Special Funds Library Account,6,total,,,364.0,2.0,0,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,7,section_header,,Pension Fund,,,,,False,,,,,,,,,0.85,model,,12
+1889,4,ledger,Special Funds Library Account,8,entry,,Dividends & Interest,742.0,4.0,3,,False,,,,,,,,,1.0,model,,20
+1889,4,ledger,Special Funds Library Account,9,entry,,Sale of Stockington Living,2102.0,7.0,6,,False,,,,,,,,,1.0,model,,26
+1889,4,ledger,Special Funds Library Account,10,entry,,From Tuition Funds,200.0,,,,False,,,,,,,,,1.0,model,,18
+1889,4,ledger,Special Funds Library Account,11,total,,,3024.0,11.0,9,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,12,entry,,Purchase of Consols 4% Dec 1702,2101.0,17.0,7,,False,,,,,,,,,1.0,model,,31
+1889,4,ledger,Special Funds Library Account,13,entry,,Agency &c,3.0,1.0,,,False,,,,,,,,,1.0,model,,9
+1889,4,ledger,Special Funds Library Account,14,entry,,Purchase of Consols,900.0,,,,False,,,,,,,,,1.0,model,,19
+1889,4,ledger,Special Funds Library Account,15,entry,,Balance at close of acct,18.0,17.0,2,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,16,total,,,3024.0,11.0,9,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,17,section_header,,Local Rates Composition Fund,,,,,False,,,,,,,,,0.85,model,,28
+1889,4,ledger,Special Funds Library Account,18,entry,,Transfer from Composition (Reserve acct II),8.0,17.0,6,,False,,,,,,,,,1.0,model,,43
+1889,4,ledger,Special Funds Library Account,19,entry,,Rent,37.0,9.0,7,,False,,,,,,,,,1.0,model,,4
+1889,4,ledger,Special Funds Library Account,20,entry,,Dividends,9.0,,,,False,,,,,,,,,1.0,model,,9
+1889,4,ledger,Special Funds Library Account,21,entry,,Balance at beginning of acct,97.0,10.0,11,,False,,,,,,,,,1.0,model,,28
+1889,4,ledger,Special Funds Library Account,22,total,,,152.0,18.0,0,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,23,entry,,Balance at close of acct,152.0,18.0,,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,24,section_header,,Tuition Fund,,,,,False,,,,,,,,,0.85,model,,12
+1889,4,ledger,Special Funds Library Account,25,entry,,Tuition Fees,472.0,14.0,,,False,,,,,,,,,1.0,model,,12
+1889,4,ledger,Special Funds Library Account,26,entry,,Dividends & Interest,14.0,15.0,5,,False,,,,,,,,,1.0,model,,20
+1889,4,ledger,Special Funds Library Account,27,entry,,Total Receipts,473.0,9.0,5,,False,,,,,,,,,1.0,model,,14
+1889,4,ledger,Special Funds Library Account,28,entry,,Balance at beginning of acct,706.0,16.0,2,,False,,,,,,,,,1.0,model,,28
+1889,4,ledger,Special Funds Library Account,29,total,,,3144.0,5.0,7,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,30,entry,,Tutors & Lecturers (being Fellows),2146.0,13.0,4,,False,,,,,,,,,1.0,model,,34
+1889,4,ledger,Special Funds Library Account,31,entry,,Tutors & Lecturers (not being Fellows),277.0,4.0,6,,False,,,,,,,,,1.0,model,,38
+1889,4,ledger,Special Funds Library Account,32,entry,,Fees to Professors & others,23.0,13.0,6,,False,,,,,,,,,1.0,model,,27
+1889,4,ledger,Special Funds Library Account,33,entry,,Do,29.0,15.0,5,,False,,,,,,,,,1.0,model,,2
+1889,4,ledger,Special Funds Library Account,34,entry,,Sub Rector,150.0,,,,False,,,,,,,,,1.0,model,,10
+1889,4,ledger,Special Funds Library Account,35,entry,,Stationery &c,12.0,1.0,10,,False,,,,,,,,,1.0,model,,13
+1889,4,ledger,Special Funds Library Account,36,entry,,Transfer to Pension Fund,200.0,,,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,37,entry,,Investment,500.0,,,,False,,,,,,,,,1.0,model,,10
+1889,4,ledger,Special Funds Library Account,38,total,,Total Payments,3339.0,8.0,7,,False,,,,,,,,,1.0,model,,14
+1889,4,ledger,Special Funds Library Account,39,entry,,Balance at close of acct,104.0,1.0,7,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,40,total,,,3144.0,5.0,7,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,41,section_header,,Exhibition Fund,,,,,False,,,,,,,,,0.85,model,,15
+1889,4,ledger,Special Funds Library Account,42,entry,,From Corporate Revenues,201.0,6.0,8,,False,,,,,,,,,1.0,model,,23
+1889,4,ledger,Special Funds Library Account,43,entry,,Balance at beginning of acct,56.0,6.0,8,,False,,,,,,,,,1.0,model,,28
+1889,4,ledger,Special Funds Library Account,44,total,,,257.0,13.0,4,,False,,,,,,,,,0.85,model,,3
+1889,4,ledger,Special Funds Library Account,45,entry,,Paid to Exhibitions,257.0,13.0,4,,False,,,,,,,,,1.0,model,,19
+1889,4,ledger,Special Funds Library Account,46,entry,,Balance at close of acct,257.0,13.0,4,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,47,section_header,,Undergraduate Reading Room Fund,,,,,False,,,,,,,,,0.85,model,,31
+1889,4,ledger,Special Funds Library Account,48,entry,,By Subscriptions,41.0,8.0,,,False,,,,,,,,,1.0,model,,16
+1889,4,ledger,Special Funds Library Account,49,entry,,Balance at beginning of acct,41.0,8.0,,,False,,,,,,,,,1.0,model,,28
+1889,4,ledger,Special Funds Library Account,50,entry,,Sundry Bills &c,29.0,5.0,6,,False,,,,,,,,,1.0,model,,15
+1889,4,ledger,Special Funds Library Account,51,entry,,Balance at close of acct,12.0,2.0,6,,False,,,,,,,,,1.0,model,,24
+1889,4,ledger,Special Funds Library Account,52,total,,,41.0,8.0,,,False,,,,,,,,,0.85,model,,3
+1889,5,balance_sheet,Balance Sheet,1,title,,Balance Sheet,,,,,False,,,,,,,,,0.85,model,,13
+1889,5,balance_sheet,Balance Sheet,2,entry,,Caution Money in hands of College,11225.0,10.0,4,,False,,debit,,,,,,,1.0,model,,33
+1889,5,balance_sheet,Balance Sheet,3,entry,,Less due for Batteries,5742.0,14.0,8,,False,,debit,,,,,,,1.0,model,,22
+1889,5,balance_sheet,Balance Sheet,4,section_header,,Trust Funds,,,,,False,,,,,,,,,0.85,model,,11
+1889,5,balance_sheet,Balance Sheet,5,section_header,,"Balances, due by College :-",,,,,False,,,,,,,,,0.85,model,,27
+1889,5,balance_sheet,Balance Sheet,6,entry,,Symes,,7.0,15,,False,,debit,,,,,,,0.85,model,,5
+1889,5,balance_sheet,Balance Sheet,7,entry,,King Charles I,450.0,2.0,2,,False,,debit,,,,,,,1.0,model,,14
+1889,5,balance_sheet,Balance Sheet,8,entry,,Mitchell,,11.0,7,,False,,debit,,,,,,,1.0,model,,8
+1889,5,balance_sheet,Balance Sheet,9,entry,,Giffore,,43.0,9,,False,,debit,,,,,,,0.85,model,,7
+1889,5,balance_sheet,Balance Sheet,10,entry,,Lovemore Richards,105.0,10.0,2,,False,,debit,,,,,,,1.0,model,,17
+1889,5,balance_sheet,Balance Sheet,11,entry,,Dr Richards,26.0,,6,,False,,debit,,,,,,,1.0,model,,11
+1889,5,balance_sheet,Balance Sheet,12,entry,,Carter,,,3,,False,,debit,,,,,,,1.0,model,,6
+1889,5,balance_sheet,Balance Sheet,13,entry,,How.,,91.0,7,,False,,debit,,,,,,,0.85,model,,4
+1889,5,balance_sheet,Balance Sheet,14,entry,,Harker,,29.0,15,,False,,debit,,,,,,,0.75,model,,6
+1889,5,balance_sheet,Balance Sheet,15,entry,,Dr Richards Orig,,34.0,16,,False,,debit,,,,,,,0.75,model,,16
+1889,5,balance_sheet,Balance Sheet,16,entry,,Photridge Trust (Salary),112.0,10.0,,,False,,debit,,,,,,,1.0,model,,24
+1889,5,balance_sheet,Balance Sheet,17,total,,,1266.0,9.0,8,,True,,debit,,,,,,,0.85,model,,3
+1889,5,balance_sheet,Balance Sheet,18,section_header,,Special Funds :-,,,,,False,,,,,,,,,0.85,model,,16
+1889,5,balance_sheet,Balance Sheet,19,entry,,Local Rates Composition Fund,,152.0,14,,False,,debit,,,,,,,0.75,model,,28
+1889,5,balance_sheet,Balance Sheet,20,entry,,Tuition Funds,,104.0,7,,False,,debit,,,,,,,0.85,model,,13
+1889,5,balance_sheet,Balance Sheet,21,section_header,,Exhibition Funds,,,,,False,,debit,,,,,,,0.85,model,,16
+1889,5,balance_sheet,Balance Sheet,22,entry,,Pension Fund,,19.0,2,,False,,debit,,,,,,,1.0,model,,12
+1889,5,balance_sheet,Balance Sheet,23,entry,,Undergraduate Reading Room Fund,,12.0,6,,False,,debit,,,,,,,1.0,model,,31
+1889,5,balance_sheet,Balance Sheet,24,total,,,205.0,14.0,8,,True,,debit,,,,,,,0.85,model,,3
+1889,5,balance_sheet,Balance Sheet,25,entry,,Balance from General Acct II,14020.0,,4,,False,,debit,,,,,,,1.0,model,,28
+1889,5,balance_sheet,Balance Sheet,26,total,,,10864.0,0.0,0,,True,,debit,,,,,,,0.85,model,,3
+1889,5,balance_sheet,Balance Sheet,27,entry,,Cash at Bankers,16804.0,,2,,False,,credit,,,,,,,1.0,model,,15
+1889,5,balance_sheet,Balance Sheet,28,entry,,Cash at Bankers (Library acct),112.0,10.0,,,False,,credit,,,,,,,1.0,model,,30
+1889,5,balance_sheet,Balance Sheet,29,entry,,Furniture,,3141.0,10,,False,,credit,,,,,,,0.85,model,,9
+1889,5,balance_sheet,Balance Sheet,30,entry,,Investments,,5729.0,10,,False,,credit,,,,,,,0.85,model,,11
+1889,5,balance_sheet,Balance Sheet,31,total,,,10864.0,0.0,0,,True,,credit,,,,,,,0.85,model,,3

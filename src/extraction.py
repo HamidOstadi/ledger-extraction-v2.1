@@ -1,23 +1,19 @@
 """
-Extraction module for the Ledger OCR Project V2.3
-Enhanced with vertical line column detection for accurate amount parsing
+Extraction module for the Ledger OCR Project V2.6
+- Standard prompt for regular ledgers (side = "NA")
+- Split extraction for dual-column balance sheets like 1889.pdf (side = "left"/"right"/"center")
 """
 
 import json
-import base64
 import pandas as pd
 from openai import OpenAI
 
-from src.config import (
-    OPENAI_API_KEY,
-    MODEL_NAME,
-    COLUMNS,
-)
+from src.config import OPENAI_API_KEY, MODEL_NAME, COLUMNS
 from src.pdf_utils import pdf_page_to_image, pil_image_to_base64
 from src.schema import (
     clean_pence_fraction,
-    calculate_confidence_score,
     infer_row_type,
+    calculate_confidence_score,
     apply_schema_defaults,
     normalize_empty_values,
 )
@@ -27,7 +23,18 @@ from src.schema import (
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
-SYSTEM_PROMPT = """
+# =============================================================================
+# FILES REQUIRING SPECIAL HANDLING
+# =============================================================================
+
+COMPLEX_FILES = ["1889"]  # Dual-column balance sheets requiring split extraction
+
+
+# =============================================================================
+# STANDARD PROMPT (For all files except 1889)
+# =============================================================================
+
+SYSTEM_PROMPT_STANDARD = """
 You are transcribing historical accounting ledgers from high-resolution scans of 18th-19th century English parish records.
 
 PAGE STRUCTURE:
@@ -45,194 +52,178 @@ ROW TYPES — You MUST classify each row correctly:
 CRITICAL RULE FOR SECTION HEADERS:
 If a row has text in the description but NO numbers in ANY of the three amount columns (pounds, shillings, pence), it is a "section_header", NOT an "entry". Do NOT skip these rows — extract them with empty amount fields.
 
-================================================================================
-CRITICAL: IDENTIFYING CURRENCY COLUMNS USING VERTICAL LINES
-================================================================================
-
-STEP 1: LOCATE THE VERTICAL DIVIDER LINES
-Most ledger pages have THREE VERTICAL LINES running from top to bottom on the RIGHT side of the page. These lines physically divide the currency columns:
-
-    |  Description text here  |  £  |  s  |  d  |
-                              ↑    ↑    ↑    ↑
-                          Line 1  Line 2  Line 3  (page edge)
-
-- The space between Line 1 and Line 2 = POUNDS (£)
-- The space between Line 2 and Line 3 = SHILLINGS (s)
-- The space between Line 3 and the page edge = PENCE (d)
-
-STEP 2: USE THE VERTICAL LINES AS GUIDES
-Before extracting any numbers:
-1. FIRST, scan the right portion of the page to identify these vertical ruling lines
-2. Note where each line runs vertically down the page
-3. These lines define the column boundaries for ALL rows
-
-STEP 3: EXTRACT NUMBERS BASED ON COLUMN POSITION
-For each row, read the numbers that fall WITHIN each column space:
-- Numbers between Line 1 and Line 2 → amount_pounds
-- Numbers between Line 2 and Line 3 → amount_shillings  
-- Numbers between Line 3 and page edge → amount_pence_whole
-
-IMPORTANT: The vertical lines are your PRIMARY guide. Trust the physical column boundaries over visual spacing between numbers.
-
-================================================================================
-CURRENCY VALIDATION RULES
-================================================================================
-
-After extracting amounts, VERIFY they make sense:
-- SHILLINGS must be 0-19 (because 20 shillings = 1 pound)
-- PENCE must be 0-11 (because 12 pence = 1 shilling)
-- POUNDS can be any positive number
-
-IF VALIDATION FAILS:
-If you extract shillings >= 20 or pence >= 12, you have likely:
-1. Misidentified the column boundaries, OR
-2. Merged numbers from adjacent columns
-
-GO BACK and re-examine the vertical lines to correctly separate the values.
-
-COMMON ERRORS TO AVOID:
-❌ WRONG: Reading "15  6" as pounds=156 (merged two columns)
-✓ RIGHT:  Reading "15  6" as shillings=15, pence=6
-
-❌ WRONG: Putting 25 in shillings (impossible — max is 19)  
-✓ RIGHT:  Re-check the vertical lines; 25 is likely "2" and "5" in separate columns
-
-================================================================================
-HANDLING VARIATIONS IN COLUMN STRUCTURE
-================================================================================
-
-VARIATION 1: Clear vertical lines present
-→ Use the lines directly as column boundaries
-
-VARIATION 2: Faint or partial vertical lines
-→ Look at the TOP (header row) or BOTTOM (total row) where lines are often clearer
-→ Project those column positions to all rows
-
-VARIATION 3: No visible vertical lines
-→ Use the TOTAL row at the bottom as your guide — totals are usually well-aligned
-→ Identify the three column positions from the total, then apply to all rows above
-
-VARIATION 4: Dense or crowded numbers
-→ The vertical lines are especially important here
-→ Trust the physical column position over apparent spacing
-
-================================================================================
-
 BRACE GROUPINGS:
 Some ledgers use a curly brace "{" to group multiple sub-entries under one parent entry.
-For example:
-  Tintinhull { Napper  — 02  5  5
-             { Hopkins — 01 18  7
-
 When you see this pattern:
 - Extract EACH line as a separate row
 - Set group_brace_id to the same number for all rows in the group
 - The parent entry may or may not have its own amounts
 
-CURRENCY NOTATION:
-- Pence fractions: 1/4, 1/2, 3/4 or unicode ¼, ½, ¾
-  * "q" or "qd" after a number = 1/4 (quarter pence)
-  * "ob" = 1/2 (half pence)
-  * Ignore trailing "d" (denarius)
+CURRENCY RULES:
+- Pounds, shillings, pence must exactly match what is written (do not calculate or infer)
+- SHILLINGS must be 0-19 (20 shillings = 1 pound)
+- PENCE must be 0-11 (12 pence = 1 shilling)
+- Pence fractions: "q" or "qd" = 1/4, "ob" = 1/2, "3q" = 3/4
 - Put whole pence in amount_pence_whole, fraction in amount_pence_fraction
-- If a column is empty, use "" — do NOT invent values
-
-PAGE TYPES:
-- "ledger" = Standard format with entries and amounts
-- "balance_sheet" = Multi-column format with Credit/Debit sections
-
-For balance sheets, identify transaction_type as:
-- "credit" or "debit"
-- "income" or "expenditure"
+- If a column is blank, use empty string "" — do NOT invent values
 
 TEXT TRANSCRIPTION:
-- Preserve original spelling and spacing
-- Do not include margin notes
+- Preserve original spelling and spacing (e.g., "Long witnam" not "Longwitnam")
+- Do not include margin notes or annotations
 - For unclear writing, make your best faithful guess
 
 OUTPUT FORMAT:
 Return a JSON object with:
 {
-  "page_type": "ledger" or "balance_sheet",
+  "page_type": "ledger",
   "page_title": "the title text at top of page",
   "rows": [
     {
       "row_index": 1,
-      "row_type": "title|entry|section_header|total",
+      "row_type": "title",
+      "side": "NA",
       "date_raw": "",
       "description": "...",
       "amount_pounds": "",
       "amount_shillings": "",
       "amount_pence_whole": "",
       "amount_pence_fraction": "",
-      "is_total_row": false,
-      "group_brace_id": "",
-      "transaction_type": ""
+      "transaction_type": "",
+      "group_brace_id": ""
     },
     ...
   ]
 }
 
+IMPORTANT: The "side" field must ALWAYS be "NA" for standard ledger pages.
+
 FINAL CHECKLIST:
-□ Did I identify the vertical column divider lines?
-□ Did I use those lines to determine column boundaries?
-□ Are ALL shillings values between 0-19?
-□ Are ALL pence values between 0-11?
 □ Did I include the page title as the first row?
 □ Did I include section headers (rows with no amounts)?
+□ Are ALL shillings values between 0-19?
+□ Are ALL pence values between 0-11?
+□ Is "side" set to "NA" for every row?
 """
 
+USER_PROMPT_STANDARD = "Please read this ledger page and extract ALL rows as described. Remember to include the title row and any section headers (rows without amounts). Set side=\"NA\" for all rows."
 
-USER_PROMPT = """
-Extract all data from this ledger page image.
 
-IMPORTANT — FOLLOW THESE STEPS:
-1. FIRST, look at the RIGHT side of the page and identify the VERTICAL LINES that divide the currency columns (Pounds | Shillings | Pence)
-2. Use these vertical lines as column boundaries for ALL rows
-3. Extract numbers based on which column space they fall into
-4. VERIFY: Shillings must be 0-19, Pence must be 0-11
+# =============================================================================
+# COMPLEX PROMPTS (For 1889.pdf - Split extraction: LEFT then RIGHT)
+# =============================================================================
 
-Include the page title, all entries, section headers (no amounts), and totals.
+SYSTEM_PROMPT_LEFT = """
+You are transcribing the LEFT SIDE ONLY of a dual-column historical ledger page from Exeter College.
 
-Return valid JSON only.
+PAGE STRUCTURE:
+This page has TWO sides - you are ONLY extracting the LEFT side (Receipts/Income).
+The LEFT side is everything to the LEFT of the central vertical divider.
+
+WHAT TO EXTRACT (LEFT SIDE ONLY):
+1. The PAGE TITLE at the top (this spans the full page, mark as side="center")
+2. ALL rows from the LEFT column labeled "Receipts" including:
+   - Section headers (A. External, B. Internal, C. From Trust Funds, etc.)
+   - Entry rows with amounts
+   - Total/sum rows
+
+DO NOT extract anything from the RIGHT side (Payments) - that will be done separately.
+
+ROW CLASSIFICATION:
+- "title" = The page title at the very top (side="center")
+- "section_header" = Section labels like "A. External", "Receipts" (side="left")
+- "entry" = Transaction rows with amounts (side="left")
+- "total" = Sum lines (side="left")
+
+SIDE FIELD:
+- "center" = Page title only
+- "left" = ALL other rows (since you're only extracting the left side)
+
+CURRENCY RULES:
+- SHILLINGS must be 0-19
+- PENCE must be 0-11
+- Pence fractions: "q"=1/4, "ob"=1/2, "3q"=3/4
+
+OUTPUT FORMAT:
+Return a JSON object with:
+{
+  "page_type": "balance_sheet",
+  "page_title": "...",
+  "extraction_side": "left",
+  "rows": [...]
+}
 """
 
+SYSTEM_PROMPT_RIGHT = """
+You are transcribing the RIGHT SIDE ONLY of a dual-column historical ledger page from Exeter College.
 
-def extract_page_rows(
+PAGE STRUCTURE:
+This page has TWO sides - you are ONLY extracting the RIGHT side (Payments/Expenditure).
+The RIGHT side is everything to the RIGHT of the central vertical divider.
+
+WHAT TO EXTRACT (RIGHT SIDE ONLY):
+1. ALL rows from the RIGHT column labeled "Payments" including:
+   - Section headers (A. External, B. Internal, C. University Purposes, etc.)
+   - Entry rows with amounts
+   - Total/sum rows
+
+DO NOT extract the page title (already extracted) or anything from the LEFT side.
+
+ROW CLASSIFICATION:
+- "section_header" = Section labels like "A. External", "Payments" (side="right")
+- "entry" = Transaction rows with amounts (side="right")
+- "total" = Sum lines (side="right")
+
+SIDE FIELD:
+- "right" = ALL rows (since you're only extracting the right side)
+
+CURRENCY RULES:
+- SHILLINGS must be 0-19
+- PENCE must be 0-11
+- Pence fractions: "q"=1/4, "ob"=1/2, "3q"=3/4
+
+OUTPUT FORMAT:
+Return a JSON object with:
+{
+  "page_type": "balance_sheet",
+  "extraction_side": "right",
+  "rows": [...]
+}
+"""
+
+USER_PROMPT_LEFT = "Extract ONLY the LEFT side (Receipts) of this ledger page. Include the page title (center) and all rows from the left column. Do NOT include anything from the right side (Payments)."
+
+USER_PROMPT_RIGHT = "Extract ONLY the RIGHT side (Payments) of this ledger page. Do NOT include the page title or anything from the left side (Receipts)."
+
+
+# =============================================================================
+# EXTRACTION FUNCTIONS
+# =============================================================================
+
+def extract_page_rows_standard(
     file_id: str,
     pdf_path: str,
     page_number: int,
+    model_name: str = MODEL_NAME,
 ) -> pd.DataFrame:
     """
-    Extract rows from a single page of a PDF.
-
-    Args:
-        file_id: Identifier for the PDF file
-        pdf_path: Path to the PDF file
-        page_number: Page number to extract (1-based)
-
-    Returns:
-        DataFrame with extracted rows
+    Extract ledger rows from a standard single-column page.
     """
-    # Convert PDF page to image
+    # Convert page to base64
     img = pdf_page_to_image(pdf_path, page_number)
-    img_base64 = pil_image_to_base64(img)
+    img_b64 = pil_image_to_base64(img)
 
-    # Call OpenAI API
+    # Call the API
     response = client.chat.completions.create(
-        model=MODEL_NAME,
+        model=model_name,
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": SYSTEM_PROMPT_STANDARD},
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": USER_PROMPT},
+                    {"type": "text", "text": USER_PROMPT_STANDARD},
                     {
                         "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/png;base64,{img_base64}",
-                            "detail": "high",
-                        },
+                        "image_url": {"url": f"data:image/png;base64,{img_b64}"},
                     },
                 ],
             },
@@ -241,97 +232,227 @@ def extract_page_rows(
         temperature=0.1,
     )
 
-    # Parse response
-    content = response.choices[0].message.content
+    content = response.choices[0].message.content.strip()
 
-    # Clean up JSON (remove markdown code blocks if present)
-    content = content.strip()
-    if content.startswith("```json"):
-        content = content[7:]
-    if content.startswith("```"):
-        content = content[3:]
-    if content.endswith("```"):
-        content = content[:-3]
-    content = content.strip()
+    # Parse JSON response
+    raw = content
+    if raw.startswith("```"):
+        raw = raw.strip("`")
+        if raw.lower().startswith("json"):
+            raw = raw[4:].strip()
+    if raw.endswith("```"):
+        raw = raw[:-3].strip()
 
-    # Parse JSON
-    data = json.loads(content)
+    data = json.loads(raw)
 
-    # Convert to DataFrame
+    # Extract metadata
+    page_type = data.get("page_type", "ledger")
+    page_title = data.get("page_title", "")
     rows = data.get("rows", [])
+
     if not rows:
         return pd.DataFrame(columns=COLUMNS)
 
+    # Convert to DataFrame
     df = pd.DataFrame(rows)
 
-    # Apply schema defaults
+    # Ensure 'side' is "NA" for standard files
+    df["side"] = "NA"
+
+    # Apply metadata
     df = apply_schema_defaults(df, file_id, page_number)
+    df["page_type"] = page_type
+    df["page_title"] = page_title
 
-    # Set page_type and page_title from response
-    df["page_type"] = data.get("page_type", "ledger")
-    df["page_title"] = data.get("page_title", "")
+    # Post-processing
+    df = post_process_extraction(df)
 
-    # Clean pence fractions
-    for idx, row in df.iterrows():
-        pence_whole = row.get("amount_pence_whole", "")
-        pence_frac = row.get("amount_pence_fraction", "")
-        cleaned_whole, cleaned_frac = clean_pence_fraction(pence_whole, pence_frac)
-        df.at[idx, "amount_pence_whole"] = cleaned_whole
-        df.at[idx, "amount_pence_fraction"] = cleaned_frac
+    return df
 
-    # Normalize empty values
-    for col in ["amount_pounds", "amount_shillings", "amount_pence_whole", "amount_pence_fraction"]:
+
+def extract_page_rows_complex(
+    file_id: str,
+    pdf_path: str,
+    page_number: int,
+    model_name: str = MODEL_NAME,
+) -> pd.DataFrame:
+    """
+    Extract ledger rows from a complex dual-column page using split extraction.
+    """
+    # Convert page to base64
+    img = pdf_page_to_image(pdf_path, page_number)
+    img_b64 = pil_image_to_base64(img)
+
+    # Extract LEFT side
+    response_left = client.chat.completions.create(
+        model=model_name,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT_LEFT},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": USER_PROMPT_LEFT},
+                    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}},
+                ],
+            },
+        ],
+        max_tokens=8192,
+        temperature=0.1,
+    )
+
+    content_left = response_left.choices[0].message.content.strip()
+
+    # Parse LEFT JSON
+    raw_left = content_left
+    if raw_left.startswith("```"):
+        raw_left = raw_left.strip("`")
+        if raw_left.lower().startswith("json"):
+            raw_left = raw_left[4:].strip()
+    if raw_left.endswith("```"):
+        raw_left = raw_left[:-3].strip()
+
+    data_left = json.loads(raw_left)
+    rows_left = data_left.get("rows", [])
+    page_title = data_left.get("page_title", "")
+
+    # Extract RIGHT side
+    response_right = client.chat.completions.create(
+        model=model_name,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT_RIGHT},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": USER_PROMPT_RIGHT},
+                    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{img_b64}"}},
+                ],
+            },
+        ],
+        max_tokens=8192,
+        temperature=0.1,
+    )
+
+    content_right = response_right.choices[0].message.content.strip()
+
+    # Parse RIGHT JSON
+    raw_right = content_right
+    if raw_right.startswith("```"):
+        raw_right = raw_right.strip("`")
+        if raw_right.lower().startswith("json"):
+            raw_right = raw_right[4:].strip()
+    if raw_right.endswith("```"):
+        raw_right = raw_right[:-3].strip()
+
+    data_right = json.loads(raw_right)
+    rows_right = data_right.get("rows", [])
+
+    # Combine rows (LEFT first, then RIGHT)
+    all_rows = rows_left + rows_right
+
+    # Re-index rows sequentially
+    for i, row in enumerate(all_rows):
+        row["row_index"] = i + 1
+
+    if not all_rows:
+        return pd.DataFrame(columns=COLUMNS)
+
+    # Convert to DataFrame
+    df = pd.DataFrame(all_rows)
+
+    # Apply metadata
+    df = apply_schema_defaults(df, file_id, page_number)
+    df["page_type"] = "balance_sheet"
+    df["page_title"] = page_title
+
+    # Post-processing
+    df = post_process_extraction(df)
+
+    return df
+
+
+def post_process_extraction(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Apply common post-processing to extracted data.
+    """
+    # Normalize empty values in numeric columns
+    numeric_cols = ["amount_pounds", "amount_shillings", "amount_pence_whole", "amount_pence_fraction"]
+    for col in numeric_cols:
         if col in df.columns:
             df[col] = df[col].apply(normalize_empty_values)
 
-    # Infer row types where needed
-    for idx, row in df.iterrows():
-        if row.get("row_type") not in ["title", "total", "section_header", "entry"]:
-            df.at[idx, "row_type"] = infer_row_type(row)
+    # Clean pence fractions
+    if "amount_pence_whole" in df.columns and "amount_pence_fraction" in df.columns:
+        df[["amount_pence_whole", "amount_pence_fraction"]] = df.apply(
+            lambda r: pd.Series(clean_pence_fraction(r["amount_pence_whole"], r["amount_pence_fraction"])),
+            axis=1,
+        )
+
+    # Infer row types for rows without amounts (backup check)
+    df["row_type"] = df.apply(infer_row_type, axis=1)
+
+    # Update is_total_row flag
+    df["is_total_row"] = df["row_type"] == "total"
 
     # Calculate confidence scores
     df["confidence_score"] = df.apply(calculate_confidence_score, axis=1)
 
-    # Ensure all columns are present
+    # Ensure all columns exist and are in correct order
     for col in COLUMNS:
         if col not in df.columns:
             df[col] = ""
 
-    # Reorder columns
     df = df[COLUMNS]
 
     return df
 
 
+def extract_page_rows(
+    file_id: str,
+    pdf_path: str,
+    page_number: int,
+    model_name: str = MODEL_NAME,
+) -> pd.DataFrame:
+    """
+    Extract ledger rows from a single PDF page.
+    Automatically selects the appropriate extraction method based on file_id.
+    """
+    if file_id in COMPLEX_FILES:
+        return extract_page_rows_complex(file_id, pdf_path, page_number, model_name)
+    else:
+        return extract_page_rows_standard(file_id, pdf_path, page_number, model_name)
+
+
 def extract_full_pdf(
     file_id: str,
     pdf_path: str,
-    num_pages: int,
-) -> tuple[pd.DataFrame, list]:
+    model_name: str = MODEL_NAME,
+) -> tuple[pd.DataFrame, list[dict]]:
     """
     Extract all pages from a PDF.
-
-    Args:
-        file_id: Identifier for the PDF file
-        pdf_path: Path to the PDF file
-        num_pages: Number of pages to extract
-
-    Returns:
-        Tuple of (combined DataFrame, list of errors)
     """
+    from src.pdf_utils import get_pdf_page_count
+
+    num_pages = get_pdf_page_count(pdf_path)
     all_dfs = []
     errors = []
 
+    # Log which extraction method is being used
+    extraction_type = "COMPLEX (split)" if file_id in COMPLEX_FILES else "STANDARD"
+    print(f"  Using {extraction_type} extraction for {file_id} ({num_pages} pages)")
+
     for page_no in range(1, num_pages + 1):
         try:
-            df_page = extract_page_rows(file_id, pdf_path, page_no)
+            df_page = extract_page_rows(file_id, pdf_path, page_no, model_name)
             all_dfs.append(df_page)
+            print(f"    ✓ Page {page_no}: {len(df_page)} rows")
         except Exception as e:
-            errors.append({
+            error_info = {
                 "file_id": file_id,
                 "page_number": page_no,
                 "error": str(e),
-            })
+            }
+            errors.append(error_info)
+            print(f"    ⚠️ Page {page_no}: Error - {e}")
 
     if all_dfs:
         combined = pd.concat(all_dfs, ignore_index=True)

@@ -1,0 +1,17 @@
+file_id,page_number,page_type,page_title,row_index,row_type,date_raw,description,amount_pounds,amount_shillings,amount_pence_whole,amount_pence_fraction,is_total_row,group_brace_id,transaction_type,num_col_1,num_col_2,num_col_3,num_col_4,num_col_5,num_col_6,confidence_score,entry_confidence,notes,desc_length
+1713,5,ledger,Soluta Varia.,14,entry,,To Joh. Coxe for 11 yds 8 1/2 of matting for ye Chapl.,0.0,8.0,10,,False,,,,,,,,,1.0,model,,54
+1704,5,ledger,Soluta varia,27,entry,,To mr Remnel for reading prayers; and for for w he laid out for mr Longs books,0.0,2.0,16,,False,,,,,,,,,0.85,model,,78
+1819,1,ledger,Soluta Ordinaria. 1819,42,entry,,Synodals & Procurations. L. Whitton lamf. (undeciphered),7.0,8.0,6,,False,,,,,,,,,1.0,model,,56
+1850,6,ledger,Points Toña - Brought over,6,entry,,Mr Hastings balance on works at Campsefield and half cost of measuring,132.0,15.0,0,,False,,,,,,,,,1.0,model,,70
+1881,7,ledger,"1801
+Domus payments",19,entry,Oct 25,Symms reconstruction of closet Drain at the back of the Rectors House,23.0,2.0,5,,False,,,,,,,,,1.0,model,,69
+1850,1,ledger,Recepta Varia,5,entry,,"Of the Dean towards purchase of the fee of New Buildings, of the City",2100.0,0.0,0,,False,2.0,,,,,,,,1.0,model,,69
+1838,5,ledger,1838 Voluta Varia,21,entry,,Returned by Mr Hamilton on the College account April 1828 but then omitted,68.0,0.0,0,,False,,,,,,,,,1.0,model,,74
+1819,1,ledger,Soluta Ordinaria. 1819,36,entry,,Insurance of College. Sun Fire Office - Mids. 1819,25.0,6.0,0,,False,,,,,,,,,1.0,model,,50
+1704,6,ledger,Computus supra scriptus examinatus & approbatus per nos,4,entry,,To mr Beckner for cleaning Pictures and ye kings Arms,3.0,12.0,0,,False,,,,,,,,,1.0,model,,53
+1767,5,ledger,Soluta Scholari Cospenensi,17,entry,,Pd Mr Bishop of Jelfs for Journeys to Merton in 1766,1.0,11.0,6,,False,,,,,,,,,1.0,model,,52
+1725,6,ledger,Jorpy Finis,6,entry,1722,Pd. Question of Domainy of Mice. 8 St. Thomas 1722,37.0,12.0,4,1/2,False,,,,,,,,,1.0,model,,50
+1850,5,ledger,Soluta Varia,26,entry,,Loan to the Rector - 1/2 of third instalment for improvements at Stratfield,50.0,0.0,0,,False,1.0,,,,,,,,1.0,model,,75
+1860,5,ledger,1860 Soluta Varia,12,entry,,Clerk St Michaels Church for add. & trouble during,1.0,,1,,False,,,,,,,,,1.0,model,,50
+1831,1,ledger,1831 Recepta varia,6,entry,,Of Mr Davis - Materials Sold at Stormont by the Chapel Barn at Little Dos,4.0,10.0,0,,False,2.0,,,,,,,,1.0,model,,73
+1738,4,ledger,July 13 Brought over,7,entry,Sept. 14,pd Mr Barnard for keeping Court at Little Tue for 3 years,3.0,0.0,00,,False,,,,,,,,,1.0,model,,57

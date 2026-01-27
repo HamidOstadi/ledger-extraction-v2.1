@@ -1,0 +1,24 @@
+file_id,page_number,page_type,page_title,row_index,row_type,date_raw,description,amount_pounds,amount_shillings,amount_pence_whole,amount_pence_fraction,is_total_row,group_brace_id,transaction_type,num_col_1,num_col_2,num_col_3,num_col_4,num_col_5,num_col_6,confidence_score,entry_confidence,notes,desc_length
+1881,7,ledger,"1801
+Domus payments",30,entry,Oct 25,Straw,4.0,10.0,0,,False,,,,,,,,,1.0,model,,5
+1889,2,ledger,Account of Trust Funds,43,title,,Dr Richards Prize Fund,,,,,False,,,,,,,,,0.85,model,,22
+1873,11,ledger,1873-1874 - Domus Fund Payments.,32,entry,,Yamton,3.0,3.0,0,,False,,,,,,,,,1.0,model,,6
+1895,2,ledger,1. (Revenue) Payments,13,entry,46,"Rates, Taxes & Insurance",530.0,13.0,2,,False,,,,,,,,,1.0,model,,24
+1860,5,ledger,1860 Soluta Varia,4,entry,,Stamps,,12.0,,,False,,,,,,,,,1.0,model,,6
+1865,4,ledger,1865 Soluta Varia,32,entry,,Waller,14.0,2.0,6,,False,1.0,,,,,,,,1.0,model,,6
+1819,2,ledger,1819. Soluta Varia.,14,entry,,"Knowles, Mason",99.0,7.0,5,1/2,False,,,,,,,,,1.0,model,,14
+1850,9,ledger,Summa Receptorum et Solutionum 2do dec Novbris 1850,18,section_header,,I. L. Richards Rectoria,,,,,False,,,,,,,,,0.85,model,,23
+1889,2,ledger,Account of Trust Funds,29,total,,Total Receipts,55.0,7.0,,,False,,,,,,,,,1.0,model,,14
+1825,6,ledger,1825 Soluta Varia.,6,entry,Dec. 11,To Mr Davenport on Acc.t of the Vicarage Estate at Kidlington - see Coll. Register p. 347 -,200.0,0.0,0,,False,1.0,,,,,,,,1.0,model,,91
+1767,6,ledger,Solata varia,10,entry,,Millechipp Tille,2.0,11.0,0,,False,,,,,,,,,1.0,model,,16
+1873,6,ledger,"1873
+Domus Funda Payments",29,entry,,Gravel - see fee fund for tg -,3.0,16.0,9,,False,,,,,,,,,1.0,model,,30
+1783-1784,4,ledger,Soluta Varia,31,entry,,Mr. Fletcher for two years Buttery Books,9.0,5.0,6,,False,,,,,,,,,1.0,model,,40
+1825,10,ledger,Arreragia pro 2do die Nov: 1825,30,total,,,976.0,15.0,10,1/2,True,,,,,,,,,0.85,model,,3
+1767,2,ledger,Receyte Varia,12,entry,,In Manno ex Deb: an: Precedentij,195.0,10.0,4,1/2,False,,,,,,,,,1.0,model,,32
+1900,1,ledger,To Dec: 31st 1900 Receipts General Acct.,25,entry,I. 147.,Coffee Exhibition,77.0,6.0,8,,False,,,,,,,,,1.0,model,,17
+1889,1,ledger,Exeter College Abstract of Receipts and Payments for the Year ending December 31st 1867,14,entry,,Timber and Underwood,,,,,False,,,,,,,,,0.7,model,,20
+1881,2,ledger,"1881
+Fee Fund Receipts",15,entry,,Deans Fees,276.0,10.0,0,,False,,,,,,,,,1.0,model,,10
+1825,6,ledger,1825 Soluta Varia.,25,entry,,Subscription to the lunatic Asylum,50.0,0.0,0,,False,,,,,,,,,1.0,model,,34
+1795-1796,3,ledger,Recepta anni praesentis 1796 Brod Up,26,total,,Rent Clear Reed,232.0,15.0,2,,True,2.0,,,,,,,,1.0,model,,15
